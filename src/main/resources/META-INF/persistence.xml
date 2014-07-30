@@ -6,7 +6,7 @@
 		transaction-type="RESOURCE_LOCAL">
 		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 
-		<class>org.phstudy.model.TestJavaBean</class>
+		<class>org.phstudy.model.Product</class>
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 		<properties>
 			<!-- EclipseLink properties -->
@@ -21,7 +21,7 @@
 		transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 
-		<class>org.phstudy.model.TestJavaBean</class>
+		<class>org.phstudy.model.Product</class>
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 		<properties>
 			<!-- hibernate properties -->

@@ -11,6 +11,7 @@ import javax.persistence.Query;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.phstudy.model.Product;
 import org.phstudy.model.TestJavaBean;
 
 public class Application {
@@ -29,7 +30,7 @@ public class Application {
 		execute(PERSISTENCE_ECLIPSELINK_UNIT_NAME);
 		execute(PERSISTENCE_HIBERNATE_UNIT_NAME);
 	}
-	
+
 	private static void execute(String pu) {
 		factory = Persistence.createEntityManagerFactory(
 				PERSISTENCE_ECLIPSELINK_UNIT_NAME, getProperties());
@@ -38,11 +39,11 @@ public class Application {
 		EntityManager em = factory.createEntityManager();
 		em.getTransaction().begin();
 
-		TestJavaBean testJavaBean = new TestJavaBean();
-		testJavaBean.setName("study" + UUID.randomUUID().toString());
-		testJavaBean.setSize("L");
-		em.persist(testJavaBean);
-		
+		Product product = new Product();
+		product.setPname("study" + UUID.randomUUID().toString());
+		product.setPsize("L");
+		em.persist(product);
+
 		em.getTransaction().commit();
 		em.close();
 
@@ -51,8 +52,9 @@ public class Application {
 		em.getTransaction().begin();
 
 		Query q = em.createNativeQuery(
-				"select id, pname, psize from product",
-				TestJavaBean.class);
+				"SELECT p.pname AS name, p.psize AS size FROM product p",
+				"ProductDTO");
+
 		List<TestJavaBean> list = (List<TestJavaBean>) q.getResultList();
 
 		for (TestJavaBean bean : list) {
@@ -61,7 +63,7 @@ public class Application {
 
 		factory.close();
 	}
-	
+
 	private static Properties getProperties() {
 		Properties properties = new Properties();
 		properties
