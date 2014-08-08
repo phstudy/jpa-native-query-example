@@ -49,7 +49,6 @@ public class Application {
 
 		// query
 		em = factory.createEntityManager();
-		em.getTransaction().begin();
 
 		Query q = em.createNativeQuery(
 				"SELECT p.pname AS name, p.psize AS size FROM product p",
@@ -60,7 +59,8 @@ public class Application {
 		for (TestJavaBean bean : list) {
 			logger.info(bean.getName() + ": " + bean.getSize());
 		}
-
+		
+		em.close();
 		factory.close();
 	}
 
