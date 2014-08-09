@@ -27,6 +27,17 @@
 			<!-- hibernate properties -->
 			<property name="hibernate.show_sql" value="true" />
 		</properties>
+	</persistence-unit>
+	
+	<persistence-unit name="pu-datanucleus"
+		transaction-type="RESOURCE_LOCAL">
+		<provider>org.datanucleus.api.jpa.PersistenceProviderImpl</provider>
 
+		<class>org.phstudy.model.Product</class>
+		<exclude-unlisted-classes>true</exclude-unlisted-classes>
+		<properties>
+			<!-- datanucleus properties -->
+			<property name="datanucleus.storeManagerType" value="rdbms"/>
+		</properties>
 	</persistence-unit>
 </persistence> 

@@ -29,6 +29,10 @@ dependencies {
     compile 'org.hibernate:hibernate-core:4.3.6.Final'
     compile 'org.hibernate:hibernate-entitymanager:4.3.6.Final'
     
+    compile 'org.datanucleus:datanucleus-core:4.0.1'
+    compile 'org.datanucleus:datanucleus-rdbms:4.0.1'
+    compile 'org.datanucleus:datanucleus-api-jpa:4.0.1'
+
     testCompile group: 'junit', name: 'junit', version: '4.+'
 }
 

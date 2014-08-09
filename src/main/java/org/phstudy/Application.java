@@ -19,6 +19,7 @@ public class Application {
 
 	private static final String PERSISTENCE_ECLIPSELINK_UNIT_NAME = "pu-eclipselink";
 	private static final String PERSISTENCE_HIBERNATE_UNIT_NAME = "pu-hibernate";
+//	private static final String PERSISTENCE_DATANUCLEUS_UNIT_NAME = "pu-datanucleus";
 
 	private static final String DATABASE_JDBC_URL = "jdbc:postgresql:study";
 	private static final String DATABASE_USERNAME = "study";
@@ -27,13 +28,19 @@ public class Application {
 	private static EntityManagerFactory factory;
 
 	public static void main(String[] args) throws Exception {
-		execute(PERSISTENCE_ECLIPSELINK_UNIT_NAME);
+//		DataNucleusEnhancer enhancer = new DataNucleusEnhancer("JPA",
+//				getProperties());
+//		enhancer.setVerbose(true);
+//		enhancer.addPersistenceUnit(PERSISTENCE_DATANUCLEUS_UNIT_NAME);
+//		enhancer.enhance();
+
 		execute(PERSISTENCE_HIBERNATE_UNIT_NAME);
+		execute(PERSISTENCE_ECLIPSELINK_UNIT_NAME);
+		//execute(PERSISTENCE_DATANUCLEUS_UNIT_NAME); // not working!!
 	}
 
 	private static void execute(String pu) {
-		factory = Persistence.createEntityManagerFactory(
-				PERSISTENCE_ECLIPSELINK_UNIT_NAME, getProperties());
+		factory = Persistence.createEntityManagerFactory(pu, getProperties());
 
 		// persist
 		EntityManager em = factory.createEntityManager();
@@ -59,7 +66,7 @@ public class Application {
 		for (TestJavaBean bean : list) {
 			logger.info(bean.getName() + ": " + bean.getSize());
 		}
-		
+
 		em.close();
 		factory.close();
 	}
@@ -75,7 +82,7 @@ public class Application {
 		properties.put("javax.persistence.jdbc.password", DATABASE_PASSWORD);
 		properties.put("javax.persistence.database-product-name", "PostgreSQL");
 		properties.put("javax.persistence.schema-generation.database.action",
-				"create");
+				"drop-and-create");
 		properties.put(
 				"javax.persistence.schema-generation.create-database-schemas",
 				"true");
